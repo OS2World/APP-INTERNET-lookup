@@ -1,0 +1,13 @@
+set cntlc_colors on
+alias lookup {
+	if ([$0]) {
+                echo *** Looking up: $0.
+		if (rmatch($0 *.*)) {
+                        ^exec lookup $0
+		}
+		{^userhost $0 -CMD if ([$3]!=[<UNKNOWN>]) {
+                        ^exec lookup $4
+                        }{echo *** user $0 is not online\.}
+		}
+        }{echo *** usage: /nslookup nick/ip}
+}
